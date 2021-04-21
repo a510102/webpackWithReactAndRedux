@@ -3,6 +3,7 @@ import logger from 'redux-logger';
 
 import counterReducer from './counter/counterSlice';
 import todoListReducer from './todoList';
+import weatherReducer from './weather';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     // users: userReducer,
     counter: counterReducer,
     todoList: todoListReducer,
+    weather: weatherReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
