@@ -9,32 +9,40 @@ type weater = {
 interface WeatherState {
   parameter: weater[]; 
   isLoading: string;
+  error: string;
 }
 
 const initialState: WeatherState = {
   parameter: [],
-  isLoading: 'weather'
+  isLoading: 'weather',
+  error: '',
 }
 
 const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    weatherLoad (state) {
+    weatherLoad(state) {
       if (state.isLoading === 'weather') {
         state.isLoading = 'pending'; 
       }
     },
-    weatherReceiver (state, action) {
+    weatherReceiver(state, action) {
       if(state.isLoading === 'pending') {
         state.isLoading = 'weather';
         state.parameter = action.payload;
+      }
+    },
+    weatherFail(state, action) {
+      if (state.isLoading === 'pending') {
+        state.isLoading = 'error';
+        state.error = action.payload 
       }
     }
   }
 })
 
-export const { weatherLoad, weatherReceiver } = weatherSlice.actions;
+export const { weatherLoad, weatherReceiver, weatherFail } = weatherSlice.actions;
 
 export const selectWeather = (state: RootState) => state.weather.parameter;
 

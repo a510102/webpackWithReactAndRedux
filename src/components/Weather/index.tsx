@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { selectWeather, isWeatherLoading, weatherLoad, weatherReceiver } from '../../store/weather';
+import { selectWeather, isWeatherLoading, weatherLoad, weatherReceiver, weatherFail } from '../../store/weather';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const apiKey = 'CWB-D9255338-ABE6-4787-9B4F-C4F4E4D2B0EB';
@@ -16,10 +16,16 @@ const Weather = () => {
   
   const fetchWeather = async () => {
     dispatch(weatherLoad());
-    const response = await fetch(Url);
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(weatherReceiver(data.cwbopendata.dataset.parameterSet.parameter));
+    try {
+      const response = await fetch(Url);
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(weatherReceiver(data.cwbopendata.dataset.parameterSet.parameter));
+      } else {
+        dispatch(weatherFail('api error'))
+      }
+    } catch (error) {
+      dispatch(weatherFail(error|| 'api error'))
     }
     
   }
