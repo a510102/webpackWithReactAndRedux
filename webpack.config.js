@@ -5,7 +5,12 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'main.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].[hash:8].js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [
@@ -30,6 +35,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
       inject: 'body',
+      scriptLoading: 'blocking'
     })
   ]
 }

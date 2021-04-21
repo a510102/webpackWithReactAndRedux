@@ -12,6 +12,7 @@ const Counter = () => {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   const [countValue, setCountValue] = React.useState<string>('0');
+
   return (
     <div>
       <div>

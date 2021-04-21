@@ -2,13 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import HelloWorld from './components/HelloWorld';
-import Counter from './components/counter/index';
+import TodoList from './components/TodoList';
 
 ReactDOM.render(
   <Provider store={store}>
-    <HelloWorld />
-    <Counter />
+    <TodoList />
   </Provider>,
   document.getElementById('app')
 );
